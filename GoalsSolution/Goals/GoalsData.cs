@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Goals
 {
-    public class GoalsData
+    public static class GoalsData
     {
-        const string filePath = @"C:\Users\ITUStudent\dev\intro-to-programming-sept-2022\GoalsSolution\Goals\goals.txt";
+        public const string filePath = @"C:\Users\ITUStudent\dev\intro-to-programming-sept-2022\GoalsSolution\Goals\goals.txt";
         public static void GetData()
         {
             if(File.Exists(filePath))
             {
                 string[] lines = File.ReadAllLines(filePath);
-                if (lines.Length == 0)
+                if (lines.Length > 0)
                 {
                     foreach (string ln in lines)
                     {
                         string[] data = ln.Split("||");
-                        Console.WriteLine($"{data[0]}/n{data[1]}");
+                        Console.WriteLine($"{data[0]}\r\n{data[1]}");
                     }
                 }
 
@@ -27,7 +27,7 @@ namespace Goals
         }
         public static void AddEntry(Goal goal)
         {
-            // TextWriter tw = new StreamWriter(filePath,true);
+ 
             using (TextWriter tw = new StreamWriter(filePath, true))
             {
                 tw.WriteLine($"{goal.entryDate} || {goal.goal}");

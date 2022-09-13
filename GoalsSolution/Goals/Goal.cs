@@ -37,7 +37,7 @@ namespace Goals
             DateTime date = DateTime.Now;
             string day = date.ToString("dddd");
             string formattedDate = date.ToString("MMMM d, yyyy");
-            return $"For {day}, {formattedDate} Your Goal is:";
+            return $"[For {day}, {formattedDate} Your Goal is:]";
         }
 
     }

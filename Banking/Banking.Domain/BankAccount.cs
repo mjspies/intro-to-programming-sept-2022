@@ -1,25 +1,42 @@
-﻿namespace Banking.Domain
+﻿namespace Banking.Domain;
+
+public class BankAccount
 {
-    public class BankAccount
+    private readonly ICalculateAccountBonuses _bonusCalculator;
+
+    public BankAccount(ICalculateAccountBonuses bonusCalculator)
     {
-        private decimal _balance = 5000M;
-        public BankAccount()
-        {
-        }
+        _bonusCalculator = bonusCalculator;
+    }
 
-        public void Deposit(decimal amountToDeposit)
-        {
-            _balance += amountToDeposit;
-        }
+    private decimal _balance = 5000M; //JFHCI
+    public void Deposit(decimal amountToDeposit)
+    {
+        // Write the Code You Wish You Had
+       
+        decimal bonus = _bonusCalculator.GetBonusForDepositOnAccount(_balance, amountToDeposit);
+        _balance += amountToDeposit + bonus; 
+    }
 
-        public decimal GetBalance()
-        {
-            return _balance;
-        }
+    public decimal GetBalance()
+    {
+        return _balance;
+    }
 
-        public void Withdraw(decimal amountToWithdraw)
+    public void Withdraw(decimal amountToWithdraw)
+    {
+        if (AccountHasAvailableFunds(amountToWithdraw))
         {
             _balance -= amountToWithdraw;
         }
+        else
+        {
+            throw new OverdraftException();
+        }
+    }
+
+    private bool AccountHasAvailableFunds(decimal amountToWithdraw)
+    {
+        return amountToWithdraw <= _balance;
     }
 }

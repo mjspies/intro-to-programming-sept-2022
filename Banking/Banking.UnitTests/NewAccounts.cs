@@ -1,21 +1,18 @@
-﻿using Banking.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Banking.Domain;
+using Moq;
 
-namespace Banking.UnitTests
+namespace Banking.UnitTests;
+public class NewAccounts
 {
-    public class NewAccounts
-    {
 
-        [Fact]
-        public void HaveCorrectOpeningBalance()
-        {
-            var account = new BankAccount();
-            decimal balance = account.GetBalance();
-            Assert.Equal(5000, balance);
-        }
+    [Fact]
+    public void HaveCorrectOpeningBalance()
+    {
+        var account = new BankAccount(new Mock<ICalculateAccountBonuses>().Object);
+
+        decimal balance = account.GetBalance();
+
+        Assert.Equal(5000, balance);
     }
 }

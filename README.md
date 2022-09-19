@@ -1,3 +1,5 @@
-#intro to progrogramming
+# Intro to Programming
+
 September 2022
-this is my stuff
+
+This is my stuff.
